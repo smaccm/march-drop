@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" xmi:id="_syP7cMgxEeS_VccD8I9baQ" name="ping_pong_impl_Instance" category="system">
+  <componentInstance xmi:id="_syaTgMgxEeS_VccD8I9baQ" name="tl" category="process">
+    <componentInstance xmi:id="_sya6kMgxEeS_VccD8I9baQ" name="s" category="thread">
+      <ownedPropertyAssociation xmi:id="_sycvwMgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Thread_Properties.aadl#Thread_Properties::Dispatch_Protocol"/>
+        <ownedValue xmi:id="_sydW0MgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_sydW0cgxEeS_VccD8I9baQ">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.3/@ownedLiteral.0"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_sydW0sgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Timing_Properties.aadl#Timing_Properties::Period"/>
+        <ownedValue xmi:id="_sydW08gxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_sydW1MgxEeS_VccD8I9baQ" value="10000">
+            <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.12/@ownedLiteral.3"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_sydW1cgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Programming_Properties.aadl#Programming_Properties::Source_Text"/>
+        <ownedValue xmi:id="_sydW1sgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:ListValue" xmi:id="_sydW18gxEeS_VccD8I9baQ">
+            <ownedListElement xsi:type="aadl2:StringLiteral" xmi:id="_sydW2MgxEeS_VccD8I9baQ" value="user_code/user_sender.c"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_sydW2cgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::Compute_Entrypoint_Source_Text"/>
+        <ownedValue xmi:id="_sydW2sgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:ListValue" xmi:id="_sydW28gxEeS_VccD8I9baQ">
+            <ownedListElement xsi:type="aadl2:StringLiteral" xmi:id="_sydW3MgxEeS_VccD8I9baQ" value="periodic_ping"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syd94MgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Thread_Properties.aadl#Thread_Properties::Priority"/>
+        <ownedValue xmi:id="_syd94cgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syd94sgxEeS_VccD8I9baQ" value="10"/>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syd948gxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Stack_Size"/>
+        <ownedValue xmi:id="_syd95MgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syd95cgxEeS_VccD8I9baQ" value="256">
+            <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.11/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syd95sgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::Thread_Type"/>
+        <ownedValue xmi:id="_syd958gxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syd96MgxEeS_VccD8I9baQ">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/SMACCM_SYS.aadl#//@ownedProperty.9/@ownedPropertyType/@ownedLiteral.0"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syd96cgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Timing_Properties.aadl#Timing_Properties::Compute_Execution_Time"/>
+        <ownedValue xmi:id="_syd96sgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_syd968gxEeS_VccD8I9baQ">
+            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_syd97MgxEeS_VccD8I9baQ" value="10">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.12/@ownedLiteral.2"/>
+            </minimum>
+            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_syd97cgxEeS_VccD8I9baQ" value="50">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.12/@ownedLiteral.2"/>
+            </maximum>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syd97sgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::Sends_Events_To"/>
+        <ownedValue xmi:id="_syd978gxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:StringLiteral" xmi:id="_syd98MgxEeS_VccD8I9baQ" value="{{1 Output1}}"/>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <featureInstance xmi:id="_sya6kcgxEeS_VccD8I9baQ" name="Input1" dstConnectionInstance="_sybhosgxEeS_VccD8I9baQ" category="eventDataPort">
+        <ownedPropertyAssociation xmi:id="_syd98cgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Programming_Properties.aadl#Programming_Properties::Source_Text"/>
+          <ownedValue xmi:id="_syd98sgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:ListValue" xmi:id="_sydW18gxEeS_VccD8I9baQ">
+              <ownedListElement xsi:type="aadl2:StringLiteral" xmi:id="_sydW2MgxEeS_VccD8I9baQ" value="user_code/user_sender.c"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syek8MgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Thread_Properties.aadl#Thread_Properties::Priority"/>
+          <ownedValue xmi:id="_syek8cgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syek8sgxEeS_VccD8I9baQ" value="10"/>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syek88gxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Programming_Properties.aadl#Programming_Properties::Compute_Entrypoint_Source_Text"/>
+          <ownedValue xmi:id="_syek9MgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:StringLiteral" xmi:id="_syek9cgxEeS_VccD8I9baQ" value="ping_Loopback"/>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syek9sgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Number_Representation"/>
+          <ownedValue xmi:id="_syek98gxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syek-MgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syek-cgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Data_Size"/>
+          <ownedValue xmi:id="_syek-sgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syek-8gxEeS_VccD8I9baQ" value="4">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.11/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syek_MgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Data_Representation"/>
+          <ownedValue xmi:id="_syek_cgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syek_sgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:EventDataPort" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance xmi:id="_sya6ksgxEeS_VccD8I9baQ" name="Output1" srcConnectionInstance="_sybhoMgxEeS_VccD8I9baQ" category="eventDataPort" direction="out">
+        <ownedPropertyAssociation xmi:id="_syek_8gxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Programming_Properties.aadl#Programming_Properties::Source_Text"/>
+          <ownedValue xmi:id="_syelAMgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:ListValue" xmi:id="_sydW18gxEeS_VccD8I9baQ">
+              <ownedListElement xsi:type="aadl2:StringLiteral" xmi:id="_sydW2MgxEeS_VccD8I9baQ" value="user_code/user_sender.c"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfMAMgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Thread_Properties.aadl#Thread_Properties::Priority"/>
+          <ownedValue xmi:id="_syfMAcgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syfMAsgxEeS_VccD8I9baQ" value="10"/>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfMA8gxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::CommPrim_Source_Text"/>
+          <ownedValue xmi:id="_syfMBMgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:StringLiteral" xmi:id="_syfMBcgxEeS_VccD8I9baQ" value="ping_Output1"/>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfMBsgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Number_Representation"/>
+          <ownedValue xmi:id="_syfMB8gxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syfMCMgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfMCcgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Data_Size"/>
+          <ownedValue xmi:id="_syfMCsgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syfMC8gxEeS_VccD8I9baQ" value="4">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.11/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfMDMgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Data_Representation"/>
+          <ownedValue xmi:id="_syfMDcgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syfMDsgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:EventDataPort" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.3/@ownedThreadSubcomponent.0"/>
+      <index>0</index>
+    </componentInstance>
+    <componentInstance xmi:id="_sya6k8gxEeS_VccD8I9baQ" name="r" category="thread">
+      <ownedPropertyAssociation xmi:id="_syfMD8gxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Thread_Properties.aadl#Thread_Properties::Dispatch_Protocol"/>
+        <ownedValue xmi:id="_syfMEMgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syfMEcgxEeS_VccD8I9baQ">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.3/@ownedLiteral.2"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syfMEsgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::Thread_Type"/>
+        <ownedValue xmi:id="_syfME8gxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syfMFMgxEeS_VccD8I9baQ">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/SMACCM_SYS.aadl#//@ownedProperty.9/@ownedPropertyType/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syfMFcgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/Timing_Properties.aadl#Timing_Properties::Compute_Execution_Time"/>
+        <ownedValue xmi:id="_syfMFsgxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_syfMF8gxEeS_VccD8I9baQ">
+            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_syfMGMgxEeS_VccD8I9baQ" value="10">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.12/@ownedLiteral.2"/>
+            </minimum>
+            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_syfMGcgxEeS_VccD8I9baQ" value="50">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.12/@ownedLiteral.2"/>
+            </maximum>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xmi:id="_syfMGsgxEeS_VccD8I9baQ">
+        <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::Sends_Events_To"/>
+        <ownedValue xmi:id="_syfMG8gxEeS_VccD8I9baQ">
+          <ownedValue xsi:type="aadl2:StringLiteral" xmi:id="_syd98MgxEeS_VccD8I9baQ" value="{{1 Output1}}"/>
+        </ownedValue>
+      </ownedPropertyAssociation>
+      <featureInstance xmi:id="_sya6lMgxEeS_VccD8I9baQ" name="Input1" dstConnectionInstance="_sybhoMgxEeS_VccD8I9baQ" category="eventDataPort">
+        <ownedPropertyAssociation xmi:id="_syfzEMgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Programming_Properties.aadl#Programming_Properties::Source_Text"/>
+          <ownedValue xmi:id="_syfzEcgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:ListValue" xmi:id="_syfzEsgxEeS_VccD8I9baQ">
+              <ownedListElement xsi:type="aadl2:StringLiteral" xmi:id="_syfzE8gxEeS_VccD8I9baQ" value="user_code/user_receiver.c"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfzFMgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::Compute_Entrypoint_Source_Text"/>
+          <ownedValue xmi:id="_syfzFcgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:ListValue" xmi:id="_syfzFsgxEeS_VccD8I9baQ">
+              <ownedListElement xsi:type="aadl2:StringLiteral" xmi:id="_syfzF8gxEeS_VccD8I9baQ" value="pong_received"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfzGMgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Number_Representation"/>
+          <ownedValue xmi:id="_syfzGcgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syfzGsgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfzG8gxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Data_Size"/>
+          <ownedValue xmi:id="_syfzHMgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_syfzHcgxEeS_VccD8I9baQ" value="4">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.11/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_syfzHsgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Data_Representation"/>
+          <ownedValue xmi:id="_syfzH8gxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_syfzIMgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:EventDataPort" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.1/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance xmi:id="_sya6lcgxEeS_VccD8I9baQ" name="Output1" srcConnectionInstance="_sybhosgxEeS_VccD8I9baQ" category="eventDataPort" direction="out">
+        <ownedPropertyAssociation xmi:id="_sygaIMgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/SMACCM_SYS.aadl#SMACCM_SYS::CommPrim_Source_Text"/>
+          <ownedValue xmi:id="_sygaIcgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:StringLiteral" xmi:id="_sygaIsgxEeS_VccD8I9baQ" value="pong_Output1"/>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_sygaI8gxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Number_Representation"/>
+          <ownedValue xmi:id="_sygaJMgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_sygaJcgxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_sygaJsgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Data_Size"/>
+          <ownedValue xmi:id="_sygaJ8gxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_sygaKMgxEeS_VccD8I9baQ" value="4">
+              <unit href="../../Plugin_Resources/AADL_Project.aadl#//@ownedPropertyType.11/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xmi:id="_sygaKcgxEeS_VccD8I9baQ">
+          <property href="../../Plugin_Resources/Data_Model.aadl#Data_Model::Data_Representation"/>
+          <ownedValue xmi:id="_sygaKsgxEeS_VccD8I9baQ">
+            <ownedValue xsi:type="aadl2:NamedValue" xmi:id="_sygaK8gxEeS_VccD8I9baQ">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../../Plugin_Resources/Data_Model.aadl#//@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:EventDataPort" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.1/@ownedEventDataPort.1"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.3/@ownedThreadSubcomponent.1"/>
+      <index>0</index>
+    </componentInstance>
+    <connectionInstance xmi:id="_sybhoMgxEeS_VccD8I9baQ" name="s.Output1 -> r.Input1" complete="true" kind="portConnection" destination="_sya6lMgxEeS_VccD8I9baQ" source="_sya6ksgxEeS_VccD8I9baQ">
+      <connectionReference xmi:id="_sybhocgxEeS_VccD8I9baQ" context="_syaTgMgxEeS_VccD8I9baQ" source="_sya6ksgxEeS_VccD8I9baQ" destination="_sya6lMgxEeS_VccD8I9baQ">
+        <connection xsi:type="aadl2:PortConnection" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.3/@ownedPortConnection.0"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance xmi:id="_sybhosgxEeS_VccD8I9baQ" name="r.Output1 -> s.Input1" complete="true" kind="portConnection" destination="_sya6kcgxEeS_VccD8I9baQ" source="_sya6lcgxEeS_VccD8I9baQ">
+      <connectionReference xmi:id="_sybho8gxEeS_VccD8I9baQ" context="_syaTgMgxEeS_VccD8I9baQ" source="_sya6lcgxEeS_VccD8I9baQ" destination="_sya6kcgxEeS_VccD8I9baQ">
+        <connection xsi:type="aadl2:PortConnection" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.3/@ownedPortConnection.1"/>
+      </connectionReference>
+    </connectionInstance>
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../ping_pong.aadl#//@ownedPublicSection/@ownedClassifier.5/@ownedProcessSubcomponent.0"/>
+    <index>0</index>
+  </componentInstance>
+  <systemOperationMode xmi:id="_sya6lsgxEeS_VccD8I9baQ" name="No Modes"/>
+  <systemImplementation href="../ping_pong.aadl#ping_pong::ping_pong.impl"/>
+</instance:SystemInstance>
