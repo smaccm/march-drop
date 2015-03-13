@@ -281,7 +281,7 @@ void pwm_signal(void *arg)
 {
 	int level;
 
-	printf("Signal from Pilot!\n");
+//	printf("Signal from Pilot!\n");
 
 	if (counter % 2) {
 		level = 0;
@@ -289,9 +289,11 @@ void pwm_signal(void *arg)
 		level = 4095;
 	}
 
-	for (int led = 1; led < NLEDS - 1; led++) {
+	sig_lock();
+	for (int led = 2; led < NLEDS - 1; led += 3) {
 		pwm_set_led(led, level);
 	}
+	sig_unlock();
 
 	if (++counter == 16) {
 		counter = 0;
@@ -300,18 +302,41 @@ void pwm_signal(void *arg)
 	signal_reg_callback(pwm_signal, NULL);
 }
 
-void pwm_vsig(int val)
+unsigned int cnt = 0;
+void timer_update_callback(void *arg)
 {
 	int level;
 
-	while(true) {
-		pwm_set_led(1, 10);
-		pwm_set_led(NLEDS - 1, 10);
-		ps_mdelay(100);
+	if (cnt % 2) {
+		level = 0;
+	} else {
+		level = 4095;
+	}
 
-		pwm_set_led(1, 4000);
-		pwm_set_led(NLEDS - 1, 4000);
-		ps_mdelay(100);
+	sig_lock();
+	for (int led = 0; led < NLEDS - 1; led += 3) {
+		pwm_set_led(led, level);
+	}
+	sig_unlock();
+
+	if (++cnt == 16) {
+		cnt = 0;
+	}
+
+	timer_update_reg_callback(timer_update_callback, NULL);
+}
+
+void pwm_vmsig(int val)
+{
+	if (!val) {
+		timer_update_reg_callback(timer_update_callback, NULL);
+	} else {
+		val = val < 0 ? 0 : 4095;
+		sig_lock();
+		for (int led = 1; led < NLEDS - 1; led += 3) {
+			pwm_set_led(led, val);
+		}
+		sig_unlock();
 	}
 }
 
@@ -320,6 +345,11 @@ int run ()
 {
     // A hack since the interrupts in camkes init functions don't seem to trigger
     init_pwm_driver();
+
+    for (int led = 0; led < NLEDS; led++) {
+	    pwm_set_led(led, 4095);
+    }
+
     signal_reg_callback(pwm_signal, NULL);
 
     return 0;
@@ -345,8 +375,4 @@ int run ()
     }
 #endif
     return 0;
-}
-
-void pwm_vmsig(int data){
-    printf("VM SIGNAL 0x%x\n", data);
 }

@@ -31,6 +31,8 @@
 #include <cpio/cpio.h>
 
 #include <sel4arm-vmm/vm.h>
+#include <sel4utils/irq_server.h>
+#include <dma/dma.h>
 
 #include "vmlinux.h"
 
@@ -39,6 +41,11 @@
 #define VM_LINUX_NAME       "linux"
 #define VM_LINUX_DTB_NAME   "linux-dtb"
 #define VM_NAME             "Linux"
+
+#define IRQSERVER_PRIO      (VM_PRIO + 1)
+#define IRQ_MESSAGE_LABEL   0xCAFE
+
+#define DMA_VSTART  0x40000000
 
 #ifndef DEBUG_BUILD
 #define seL4_DebugHalt() do{ printf("Halting...\n"); while(1); } while(0)
@@ -51,7 +58,7 @@ sel4utils_alloc_data_t _alloc_data;
 allocman_t *allocman;
 static char allocator_mempool[8388608];
 seL4_CPtr _fault_endpoint;
-
+irq_server_t _irq_server;
 
 struct ps_io_ops _io_ops;
 
@@ -84,6 +91,65 @@ print_cpio_info(void)
 
 void camkes_make_simple(simple_t *simple);
 
+static int
+_dma_morecore(size_t min_size, int cached, struct dma_mem_descriptor* dma_desc)
+{
+    static uint32_t _vaddr = DMA_VSTART;
+    struct seL4_ARM_Page_GetAddress getaddr_ret;
+    seL4_CPtr frame;
+    seL4_CPtr pd;
+    vka_t* vka;
+    int err;
+
+    pd = simple_get_pd(&_simple);
+    vka = &_vka;
+
+    /* Create a frame */
+    frame = vka_alloc_frame_leaky(vka, 12);
+    assert(frame);
+    if (!frame) {
+        return -1;
+    }
+
+    /* Try to map the page */
+    err = seL4_ARM_Page_Map(frame, pd, _vaddr, seL4_AllRights, 0);
+    if (err) {
+        seL4_CPtr pt;
+        /* Allocate a page table */
+        pt = vka_alloc_page_table_leaky(vka);
+        if (!pt) {
+            printf("Failed to create page table\n");
+            return -1;
+        }
+        /* Map the page table */
+        err = seL4_ARM_PageTable_Map(pt, pd, _vaddr, 0);
+        if (err) {
+            printf("Failed to map page table\n");
+            return -1;
+        }
+        /* Try to map the page again */
+        err = seL4_ARM_Page_Map(frame, pd, _vaddr, seL4_AllRights, 0);
+        if (err) {
+            printf("Failed to map page\n");
+            return -1;
+        }
+
+    }
+
+    /* Find the physical address of the page */
+    getaddr_ret = seL4_ARM_Page_GetAddress(frame);
+    assert(!getaddr_ret.error);
+    /* Setup dma memory description */
+    dma_desc->vaddr = _vaddr;
+    dma_desc->paddr = getaddr_ret.paddr;
+    dma_desc->cached = 0;
+    dma_desc->size_bits = 12;
+    dma_desc->alloc_cookie = (void*)frame;
+    dma_desc->cookie = NULL;
+    /* Advance the virtual address marker */
+    _vaddr += BIT(12);
+    return 0;
+}
 
 static int
 vmm_init(void)
@@ -129,10 +195,25 @@ vmm_init(void)
                                         &_io_ops.io_mapper);
     assert(!err);
 
-    /* Allocate a endpoint for listening to events */
+    /* Initialise MUX subsystem */
+    err = mux_sys_init(&_io_ops, &_io_ops.mux_sys);
+    assert(!err);
+
+    /* Initialise DMA */
+    err = dma_dmaman_init(&_dma_morecore, NULL, &_io_ops.dma_manager);
+    assert(!err);
+
+    /* Allocate an endpoint for listening to events */
     err = vka_alloc_endpoint(vka, &fault_ep_obj);
     assert(!err);
     _fault_endpoint = fault_ep_obj.cptr;
+
+    /* Create an IRQ server */
+    err = irq_server_new(vspace, vka, simple_get_cnode(simple), IRQSERVER_PRIO,
+                         simple, fault_ep_obj.cptr,
+                         IRQ_MESSAGE_LABEL, 256, &_irq_server);
+    assert(!err);
+
 
     return 0;
 }
@@ -159,7 +240,6 @@ map_unity_ram(vm_t* vm)
             vka_cspace_free(vm->vka, frame.capPtr);
             break;
         }
-        printf("Adding passthrough frame at 0x%x\n", start);
         err = vspace_map_pages_at_vaddr(&vm->vm_vspace, &frame.capPtr, &bits, (void*)start, 1, bits, res);
         assert(!err);
     }
@@ -168,7 +248,7 @@ map_unity_ram(vm_t* vm)
 int
 main_continued(void)
 {
-    struct vm vm;
+    vm_t vm;
     int err;
 
     err = vmm_init();
@@ -212,13 +292,26 @@ main_continued(void)
         seL4_Word sender_badge;
 
         tag = seL4_Wait(_fault_endpoint, &sender_badge);
-        assert(sender_badge == VM_BADGE);
+        if (sender_badge == 0) {
+            seL4_Word label;
+            label = seL4_MessageInfo_get_label(tag);
+            if (label == IRQ_MESSAGE_LABEL) {
+                irq_server_handle_irq_ipc(_irq_server);
+            } else {
+                printf("Unknown label (%d) for IPC badge %d\n", label, sender_badge);
+            }
+        } else if (sender_badge == VUSB_NBADGE) {
+            vusb_notify();
+        } else {
+            assert(sender_badge == VM_BADGE);
 
-        err = vm_event(&vm, tag);
-        if (err) {
-            /* Shutdown */
-            vm_stop(&vm);
-            seL4_DebugHalt();
+            err = vm_event(&vm, tag);
+            if (err) {
+                /* Shutdown */
+                vm_stop(&vm);
+                seL4_DebugHalt();
+                while (1);
+            }
         }
     }
 
@@ -226,7 +319,6 @@ main_continued(void)
 }
 
 void run(void) {
-    printf("Calling main, expect failure\n");
     main_continued();
 }
 
