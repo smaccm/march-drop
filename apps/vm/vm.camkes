@@ -15,8 +15,8 @@ import "components/gpio/gpio.camkes";
 import "components/pilot/pilot.camkes";
 import "components/VM/VM.camkes";
 import "components/pwm/pwm.camkes";
-import "components/spi/spi.camkes";
-import "components/can/can.camkes";
+//import "components/spi/spi.camkes";
+//import "components/can/can.camkes";
 import "components/clk/clk.camkes";
 import "components/timer/timer.camkes";
 import "components/dispatch_periodic/dispatch_periodic.camkes";
@@ -55,11 +55,13 @@ component clkbase {
     dataport CLKData_t cmu_top_clk;
 }
 
+/*
 component spibase {
 	hardware;
 	dataport Buf spi1_reg;
 	emits DataAvailable spi1_int;
 }
+*/
 
 /* Timer component from AADL assembly */
 
@@ -68,6 +70,7 @@ component EPIT {
     dataport Buf mem;
     emits DataAvailable irq;
 }
+
 
 /* end timer component */ 
 
@@ -78,7 +81,7 @@ assembly {
         component uartbase uartbase_px4;
         component gpiobase gpiobase_obj;
         component i2c0     i2c0_obj;
-	component spibase  spibase_obj;
+//	component spibase  spibase_obj;
         component clkbase   clkbase_obj;
         component timerbase timerbase_obj;
 
@@ -87,8 +90,8 @@ assembly {
         component uart     uart_px4;
         component pilot    pilot_obj;
         component pwm      pwm_obj;
-	component spi      spi_obj;
-	component can      can_obj;
+//	component spi      spi_obj;
+//	component can      can_obj;
         component clk      clk_obj;
         component timer	   timer_obj;
 
@@ -102,22 +105,22 @@ assembly {
         connection seL4HardwareMMIO clk_cmu_core_mem(from clk_obj.cmu_core_clk, to clkbase_obj.cmu_core_clk);
 
         /* Interrupts */
-        connection seL4HardwareInterrupt spi1_irq(from spibase_obj.spi1_int, to spi_obj.spi1_int);
+//        connection seL4HardwareInterrupt spi1_irq(from spibase_obj.spi1_int, to spi_obj.spi1_int);
         connection seL4HardwareInterrupt gpio_grp28_irq(from gpiobase_obj.irq_grp28_int, to gpio_obj.irq_grp28_int);
         connection seL4HardwareInterrupt gpio_grp26_irq(from gpiobase_obj.irq_grp26_int, to gpio_obj.irq_grp26_int);
         connection seL4HardwareInterrupt gpio_grp31_irq(from gpiobase_obj.irq_grp31_int, to gpio_obj.irq_grp31_int);
         connection seL4HardwareInterrupt gpio_xint16_31_irq(from gpiobase_obj.xint16_31_int, to gpio_obj.xint16_31_int);
 
 	/* SPI connections */
-        connection seL4RPCCall spi_gpio(from spi_obj.gpio, to gpio_obj.gpio);
-        connection seL4RPCCall spi_clk(from spi_obj.clktree, to clk_obj.clktree);
-        connection seL4HardwareMMIO spi1_mem(from spi_obj.spi1_reg, to spibase_obj.spi1_reg);
+//        connection seL4RPCCall spi_gpio(from spi_obj.gpio, to gpio_obj.gpio);
+//        connection seL4RPCCall spi_clk(from spi_obj.clktree, to clk_obj.clktree);
+//        connection seL4HardwareMMIO spi1_mem(from spi_obj.spi1_reg, to spibase_obj.spi1_reg);
 
         /* Can driver */
-        connection seL4RPCCall 	  can_spi(from can_obj.spi, to spi_obj.spi);
-        connection seL4SharedData can_spi_channel	(from can_obj.spi_can,	to spi_obj.spi1_can);
-        connection seL4Asynch 	  gpio_can_int(from gpio_obj.CANInt, to can_obj.Int);
-        connection seL4Asynch 	  gpio_can_intAck(from can_obj.IntAck, to gpio_obj.CANIntAck);
+//        connection seL4RPCCall 	  can_spi(from can_obj.spi, to spi_obj.spi);
+//        connection seL4SharedData can_spi_channel	(from can_obj.spi_can,	to spi_obj.spi1_can);
+//        connection seL4Asynch 	  gpio_can_int(from gpio_obj.CANInt, to can_obj.Int);
+//        connection seL4Asynch 	  gpio_can_intAck(from can_obj.IntAck, to gpio_obj.CANIntAck);
 
 	/* GCS hardware connection */
         connection seL4HardwareMMIO uartbase_mem(from uart_gcs.uart0base, to uartbase_gcs.mem);
@@ -192,8 +195,8 @@ assembly {
         gpiobase_obj.irq_grp31_int_attributes = 63; //Combined IRQ group 31
         gpiobase_obj.xint16_31_int_attributes = 64; //Extern Interrupt EINT16-EINT31
 
-        spibase_obj.spi1_reg_attributes = "0x12D30000:0x1000";    //SPI1
-	spibase_obj.spi1_int_attributes = 101;                    //SPI1  interrupt
+//        spibase_obj.spi1_reg_attributes = "0x12D30000:0x1000";    //SPI1
+//	spibase_obj.spi1_int_attributes = 101;                    //SPI1  interrupt
 
         clkbase_obj.cmu_cpu_clk_attributes 	= 	"0x10010000:0x1000";	//CMU_CPU
         clkbase_obj.cmu_core_clk_attributes 	= 	"0x10014000:0x1000";	//CMU_CORE
