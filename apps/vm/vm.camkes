@@ -14,7 +14,7 @@ import "components/uart/uart.camkes";
 import "components/gpio/gpio.camkes";
 import "components/pilot/pilot.camkes";
 import "components/VM/VM.camkes";
-import "components/pwm/pwm.camkes";
+//import "components/pwm/pwm.camkes";
 //import "components/spi/spi.camkes";
 //import "components/can/can.camkes";
 import "components/clk/clk.camkes";
@@ -64,14 +64,13 @@ component spibase {
 */
 
 /* Timer component from AADL assembly */
-
+/*
 component EPIT {
     hardware;
     dataport Buf mem;
     emits DataAvailable irq;
 }
-
-
+*/
 /* end timer component */ 
 
 assembly {
@@ -89,11 +88,11 @@ assembly {
         component uart     uart_gcs;
         component uart     uart_px4;
         component pilot    pilot_obj;
-        component pwm      pwm_obj;
+//        component pwm      pwm_obj;
 //	component spi      spi_obj;
 //	component can      can_obj;
         component clk      clk_obj;
-        component timer	   timer_obj;
+//      component timer	   timer_obj;
 
         connection seL4HardwareMMIO gpio_mem1(from gpio_obj.gpio1base, to gpiobase_obj.gpio1base);
         connection seL4HardwareMMIO gpio_mem2(from gpio_obj.gpio2base, to gpiobase_obj.gpio2base);
@@ -142,23 +141,23 @@ assembly {
         connection seL4RPCCall px4_recv_inf(from uart_px4.pilot, to pilot_obj.mavlink);
 
         /* PWM connection */
-        connection seL4HardwareMMIO      i2c0_mem(from pwm_obj.i2c0, to i2c0_obj.i2c0_reg);
-        connection seL4HardwareInterrupt i2c0_irq(from i2c0_obj.i2c0_int, to pwm_obj.i2c0_int);
-        connection seL4RPCCall           fd_pwm(from pilot_obj.pwm, to pwm_obj.pwm);
-        connection seL4Asynch pwm_sig(from pilot_obj.signal, to pwm_obj.signal);
-        connection seL4Asynch pwm_timer(from timer_obj.timer_update, to pwm_obj.timer_update);
+//        connection seL4HardwareMMIO      i2c0_mem(from pwm_obj.i2c0, to i2c0_obj.i2c0_reg);
+//        connection seL4HardwareInterrupt i2c0_irq(from i2c0_obj.i2c0_int, to pwm_obj.i2c0_int);
+//        connection seL4RPCCall           fd_pwm(from pilot_obj.pwm, to pwm_obj.pwm);
+//        connection seL4Asynch pwm_sig(from pilot_obj.signal, to pwm_obj.signal);
+//        connection seL4Asynch pwm_timer(from timer_obj.timer_update, to pwm_obj.timer_update);
 
 	/* PWM timer connections */
-        connection seL4HardwareMMIO timer_mem(from timer_obj.timerbase, to timerbase_obj.timer_reg);
-        connection seL4HardwareInterrupt timer_irq(from timerbase_obj.irq, to timer_obj.irq);
+//        connection seL4HardwareMMIO timer_mem(from timer_obj.timerbase, to timerbase_obj.timer_reg);
+//        connection seL4HardwareInterrupt timer_irq(from timerbase_obj.irq, to timer_obj.irq);
 
 	/* VM to PWM */
-        connection seL4RPCCall           vm_pwm(from vm.pwm, to pwm_obj.pwm);
+//        connection seL4RPCCall           vm_pwm(from vm.pwm, to pwm_obj.pwm);
 
         /****************************************************************************
           AADL components and connections: copied from smaccm_ping_pong_impl_inst.camkes 
          ****************************************************************************/
-        component EPIT epit;    
+//        component EPIT epit;    
         component dispatch_periodic dispatch_periodic_inst;
 
         // component instances for all AADL-defined threads
@@ -173,8 +172,10 @@ assembly {
         // Periodic dispatcher connections
         connection seL4RPCCall conn2 (from dispatch_periodic_inst.sender_periodic_10000_ms, to sender_inst.sender_periodic_10000_ms);
 
-        connection seL4HardwareMMIO epit_mem(from dispatch_periodic_inst.mem, to epit.mem);
-        connection seL4HardwareInterrupt irq(from epit.irq, to dispatch_periodic_inst.irq);
+//        connection seL4HardwareMMIO epit_mem(from dispatch_periodic_inst.mem, to epit.mem);
+//        connection seL4HardwareInterrupt irq(from epit.irq, to dispatch_periodic_inst.irq);
+        connection seL4HardwareMMIO epit_mem(from dispatch_periodic_inst.mem, to timerbase_obj.timer_reg);
+        connection seL4HardwareInterrupt irq(from timerbase_obj.irq, to dispatch_periodic_inst.irq);
         /* END AADL components */
 
     }
@@ -206,15 +207,14 @@ assembly {
         i2c0_obj.i2c0_int_attributes = 88;
  
         timerbase_obj.timer_reg_attributes     = "0x12DD0000:0x1000";	//PWM timers
-        //timerbase_obj.irq_attributes	       = 72;			//Timer interrupt
-        timerbase_obj.irq_attributes	       = 73;			//Fake Timer interrupt
+        timerbase_obj.irq_attributes	       = 72;			//Timer interrupt
 
 	uart_gcs.ID = 1;
 	uart_px4.ID = 3;
 
         /* BEGIN AADL configuration bits */
-        epit.mem_attributes = "0x12DD0000:0x1000";
-        epit.irq_attributes = 72;
+//        epit.mem_attributes = "0x12DD0000:0x1000";
+//        epit.irq_attributes = 72;
         /* END AADL configuration bits */
 
         vm.mmio = "0x10000000:0x1000:12"; // CHIP_ID
