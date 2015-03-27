@@ -17,7 +17,7 @@
 #include <dispatch_periodic.h>
 
 
-#define NS_IN_SECOND 1000000000
+#define NS_IN_SECOND 1000000000ULL
 
 pstimer_t *timer_drv = NULL;
 
